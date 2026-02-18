@@ -92,8 +92,8 @@ Electronic & hip-hop producers
 
 Creators who capture ideas via voice memos
 
-🔥 Why HumTrack Is Different
-Feature	HumTrack
+🔥 Why Empath Is Different
+Feature	Empath
 Hum input	✅
 Emotion analysis	✅
 Chord generation	✅
