@@ -10,10 +10,10 @@ import torch.nn.functional as F
 import torch.utils.data
 from pytorch_lightning.core import LightningModule
 from torch.utils.data import DataLoader
-from acestep.schedulers.scheduling_flow_match_euler_discrete import (
+from empath.schedulers.scheduling_flow_match_euler_discrete import (
     FlowMatchEulerDiscreteScheduler,
 )
-from acestep.text2music_dataset import Text2MusicDataset
+from empath.text2music_dataset import Text2MusicDataset
 from loguru import logger
 from transformers import AutoModel, Wav2Vec2FeatureExtractor
 import torchaudio
@@ -21,11 +21,11 @@ from diffusers.pipelines.stable_diffusion_3.pipeline_stable_diffusion_3 import (
     retrieve_timesteps,
 )
 from diffusers.utils.torch_utils import randn_tensor
-from acestep.apg_guidance import apg_forward, MomentumBuffer
+from empath.apg_guidance import apg_forward, MomentumBuffer
 from tqdm import tqdm
 import random
 import os
-from acestep.pipeline_ace_step import ACEStepPipeline
+from empath.pipeline_ace_step import empathPipeline
 
 
 matplotlib.use("Agg")
@@ -64,10 +64,10 @@ class Pipeline(LightningModule):
         self.scheduler = self.get_scheduler()
 
         # step 1: load model
-        acestep_pipeline = ACEStepPipeline(checkpoint_dir)
-        acestep_pipeline.load_checkpoint(acestep_pipeline.checkpoint_dir)
+        empath_pipeline = empathPipeline(checkpoint_dir)
+        empath_pipeline.load_checkpoint(empath_pipeline.checkpoint_dir)
 
-        transformers = acestep_pipeline.ace_step_transformer.float().cpu()
+        transformers = empath_pipeline.ace_step_transformer.float().cpu()
         transformers.enable_gradient_checkpointing()
 
         assert lora_config_path is not None, "Please provide a LoRA config path"
@@ -85,12 +85,12 @@ class Pipeline(LightningModule):
 
         self.transformers = transformers
 
-        self.dcae = acestep_pipeline.music_dcae.float().cpu()
+        self.dcae = empath_pipeline.music_dcae.float().cpu()
         self.dcae.requires_grad_(False)
 
-        self.text_encoder_model = acestep_pipeline.text_encoder_model.float().cpu()
+        self.text_encoder_model = empath_pipeline.text_encoder_model.float().cpu()
         self.text_encoder_model.requires_grad_(False)
-        self.text_tokenizer = acestep_pipeline.text_tokenizer
+        self.text_tokenizer = empath_pipeline.text_tokenizer
 
         if self.is_train:
             self.transformers.train()
