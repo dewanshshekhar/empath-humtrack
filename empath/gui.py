@@ -41,7 +41,7 @@ import click
 )
 def main(checkpoint_path, server_name, port, device_id, share, bf16, torch_compile, cpu_offload, overlapped_decode):
     """
-    Main function to launch the ACE Step pipeline demo.
+    Main function to launch the Empath pipeline demo.
     """
 
     os.environ["CUDA_VISIBLE_DEVICES"] = str(device_id)
