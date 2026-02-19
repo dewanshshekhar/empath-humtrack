@@ -1,104 +1,158 @@
-Empath AI
+# 🎧 Empath AI  
+## The First Intent-Aaware Music Production AI  
+**Hum a melody. Get a full arrangement. Directly in your DAW.**
 
-The First Intent-Aware Music Production AI
-Hum a melody. Get a full arrangement. Directly in your DAW.
+---
 
-Overview
+## 🧠 Overview
 
 Empath AI is an AI-powered music production tool that transforms a hummed melody into a harmonically intelligent, multi-track MIDI arrangement — delivered directly into your DAW.
 
-Unlike basic pitch-to-MIDI tools, HumTrack understands musical intent, emotion, and structure, not just notes.
+Unlike basic pitch-to-MIDI tools, Empath understands **musical intent, emotion, and structure**, not just notes.
 
-Designed for independent producers, beatmakers, and FL Studio users, HumTrack reduces the workflow from idea → arrangement from 40–120 minutes down to under 45 seconds.
+Built for independent producers, beatmakers, and FL Studio users, Empath reduces the workflow from **idea → arrangement** from **40–120 minutes down to under 45 seconds**.
 
-🚀 Key Features
+---
 
-🎙 Hum-to-MIDI Pipeline – Record 5–30 seconds of melody via microphone
+## 🚀 Key Features
 
-🎼 Intent & Emotion Analysis – Detects key, BPM, mood, and melodic contour
+- 🎙 **Hum-to-MIDI Pipeline**  
+  Record 5–30 seconds of melody via microphone
 
-🎹 Automatic Chord Generation – Harmonically intelligent chord progressions
+- 🎼 **Intent & Emotion Analysis**  
+  Detects key, BPM, mood, and melodic contour
 
-🎧 Optional Audio Preview – 30-second backing track preview
+- 🎹 **Automatic Chord Generation**  
+  Harmonically intelligent chord progressions
 
-🎛 Multi-Track MIDI Output – Melody + chords delivered to DAW
+- 🎧 **Optional Audio Preview**  
+  30-second backing track preview
 
-💬 Natural Language Refinement – “Make this darker”, “Add tension”, etc.
+- 🎛 **Multi-Track MIDI Output**  
+  Melody + chords delivered directly to DAW
 
-🔒 Fully Offline & Private – No cloud dependency
+- 💬 **Natural Language Refinement**  
+  Examples:  
+  - “Make this darker”  
+  - “Add tension”  
+  - “More energetic”
 
-🧠 Open-Source AI Stack – No API lock-in
+- 🔒 **Fully Offline & Private**  
+  No cloud dependency
 
-🛠 How It Works
-Step	Process	Technology
-1	Hum melody into microphone	sounddevice
-2	Analyse key, BPM, mood	Moonshot AI Kimi-Audio-7B-Instruct
-3	Generate harmony & structure	m-a-p ChatMusician
-4	Create preview backing track	Meta AI MusicGen-Chord
-5	Deliver MIDI to FL Studio	MCP + LoopMIDI
-6	Natural language iteration	Alibaba Group Qwen3 (via Ollama)
-🧠 Technology Stack
+- 🧠 **Open-Source AI Stack**  
+  No API lock-in
 
-Empath is built entirely on open-source, permissively licensed AI models:
+---
 
-Hardware Requirements:
+## 🛠 How It Works
 
-RTX 4060 (8GB VRAM) minimum recommended
+| Step | Process | Technology |
+|------|--------|------------|
+| 1 | Hum melody into microphone | `sounddevice` |
+| 2 | Analyse key, BPM, mood | Moonshot AI Kimi-Audio-7B-Instruct |
+| 3 | Generate harmony & structure | m-a-p ChatMusician |
+| 4 | Create preview backing track | Meta MusicGen-Chord |
+| 5 | Deliver MIDI to FL Studio | MCP + LoopMIDI |
+| 6 | Natural language iteration | Alibaba Qwen3 (via Ollama) |
 
-Windows / macOS
+---
 
-No internet required after installation
+## 🧠 Technology Stack
 
-🖥 Platform
+Empath is built entirely on **open-source, permissively licensed AI models**.
 
-Desktop Application (Windows / macOS)
+### Hardware Requirements
 
-FL Studio Plugin (VST3/AU planned)
+- GPU: **RTX 4060 (8GB VRAM) minimum recommended**
+- OS: **Windows / macOS**
+- Internet: **Not required after installation**
 
-Future support: Ableton, Logic
+---
 
-💼 Business Model
-Tier	Price	Includes
-Free (Open Source)	$0	Core CLI pipeline + FL Studio bridge
-Pro Desktop	$9.99/month	UI, preview generation, NL iteration
-Studio Plugin	$19.99/month	Native DAW plugin, multi-DAW support
-Enterprise	Custom	White-label, API access, genre fine-tuning
-📍 Roadmap
+## 🖥 Platform
 
-Phase 1 – Prototype (Q1 2026)
-Hum → Analysis → Harmony → FL Studio bridge
+- ✅ Desktop Application (Windows / macOS)  
+- 🔜 FL Studio Plugin (VST3/AU planned)  
+- 🔮 Future Support: Ableton, Logic
 
-Phase 2 – Beta (Q2 2026)
-Desktop UI + 100-producer beta
+---
 
-Phase 3 – Pro Launch (Q3 2026)
-Subscription launch, 1,000 paying users target
+## 💼 Business Model
 
-Phase 4 – VST3 Plugin (Q4 2026)
-Native JUCE-based plugin + Ableton/Logic support
+| Tier | Price | Includes |
+|------|-------|----------|
+| Free (Open Source) | $0 | Core CLI pipeline + FL Studio bridge |
+| Pro Desktop | $9.99/month | UI, preview generation, NL iteration |
+| Studio Plugin | $19.99/month | Native DAW plugin, multi-DAW support |
+| Enterprise | Custom | White-label, API access, genre fine-tuning |
 
-Phase 5 – Platform Expansion (2027)
-Genre models, label partnerships, API access
+---
 
-🎯 Target Users
+## 📍 Roadmap
 
-Independent producers
+### Phase 1 — Prototype (Q1 2026)
+- Hum → Analysis → Harmony → FL Studio bridge
 
-Beatmakers
+### Phase 2 — Beta (Q2 2026)
+- Desktop UI  
+- 100-producer beta
 
-FL Studio power users
+### Phase 3 — Pro Launch (Q3 2026)
+- Subscription launch  
+- Target: 1,000 paying users
 
-Electronic & hip-hop producers
+### Phase 4 — VST3 Plugin (Q4 2026)
+- Native JUCE-based plugin  
+- Ableton + Logic support
 
-Creators who capture ideas via voice memos
+### Phase 5 — Platform Expansion (2027)
+- Genre-specific models  
+- Label partnerships  
+- Public API access
 
-🔥 Why Empath Is Different
-Feature	Empath
-Hum input	✅
-Emotion analysis	✅
-Chord generation	✅
-DAW-native delivery	✅
-Natural language refinement	✅
-Fully offline	✅
-Open-source pipeline	✅
-Multi-track MIDI	✅
+---
+
+## 🎯 Target Users
+
+- Independent producers  
+- Beatmakers  
+- FL Studio power users  
+- Electronic & hip-hop producers  
+- Creators who capture ideas via voice memos  
+
+---
+
+## 🔥 Why Empath Is Different
+
+| Feature | Empath |
+|--------|--------|
+| Hum input | ✅ |
+| Emotion analysis | ✅ |
+| Chord generation | ✅ |
+| DAW-native delivery | ✅ |
+| Natural language refinement | ✅ |
+| Fully offline | ✅ |
+| Open-source pipeline | ✅ |
+| Multi-track MIDI | ✅ |
+
+---
+
+## 🤝 Contributing
+
+Contributions, ideas, and feedback are welcome.  
+If you're a producer, ML engineer, or audio DSP enthusiast, we'd love your input.
+
+---
+
+## 📜 License
+
+*(To be decided — recommended: MIT or Apache 2.0)*
+
+---
+
+## ⭐ Vision
+
+Empath AI aims to become the **fastest path from musical idea to full production** — empowering creators to stay in the flow and never lose inspiration.
+
+> Hum it. Shape it. Produce it.
