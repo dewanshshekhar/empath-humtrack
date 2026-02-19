@@ -7,9 +7,9 @@ import os
 import random
 from diffusers.utils.torch_utils import randn_tensor
 from diffusers.pipelines.stable_diffusion_3.pipeline_stable_diffusion_3 import retrieve_timesteps
-from acestep.schedulers.scheduling_flow_match_euler_discrete import FlowMatchEulerDiscreteScheduler
-from acestep.pipeline_ace_step import ACEStepPipeline
-from acestep.apg_guidance import apg_forward, MomentumBuffer
+from empath.schedulers.scheduling_flow_match_euler_discrete import FlowMatchEulerDiscreteScheduler
+from empath.pipeline_ace_step import empathPipeline
+from empath.apg_guidance import apg_forward, MomentumBuffer
 from transformers import AutoTokenizer
 from loguru import logger
 import uvicorn
@@ -37,15 +37,15 @@ class InferencePipeline:
         self.device = torch.device(device if torch.cuda.is_available() else "cpu")
         logger.info(f"Initializing model on device: {self.device}")
 
-        # Load the ACEStepPipeline
-        self.acestep_pipeline = ACEStepPipeline(checkpoint_dir)
-        self.acestep_pipeline.load_checkpoint(checkpoint_dir)
+        # Load the empathPipeline
+        self.empath_pipeline = empathPipeline(checkpoint_dir)
+        self.empath_pipeline.load_checkpoint(checkpoint_dir)
 
         # Initialize components
-        self.transformers = self.acestep_pipeline.ace_step_transformer.float().to(self.device).eval()
-        self.dcae = self.acestep_pipeline.music_dcae.float().to(self.device).eval()
-        self.text_encoder_model = self.acestep_pipeline.text_encoder_model.float().to(self.device).eval()
-        self.text_tokenizer = self.acestep_pipeline.text_tokenizer
+        self.transformers = self.empath_pipeline.ace_step_transformer.float().to(self.device).eval()
+        self.dcae = self.empath_pipeline.music_dcae.float().to(self.device).eval()
+        self.text_encoder_model = self.empath_pipeline.text_encoder_model.float().to(self.device).eval()
+        self.text_tokenizer = self.empath_pipeline.text_tokenizer
 
         # Ensure no gradients are computed
         self.transformers.requires_grad_(False)
