@@ -59,78 +59,16 @@ from collections import defaultdict
 # import py3langid as langid
 # pip install py3langid==0.2.2
 
-# 启用语言预测概率归一化，概率预测的分数。因此，实现重新规范化 产生 0-1 范围内的输出。
 # langid disables probability normalization by default. For command-line usages of , it can be enabled by passing the flag.
 # For probability normalization in library use, the user must instantiate their own . An example of such usage is as follows:
 from py3langid.langid import LanguageIdentifier, MODEL_FILE
 
 from acestep.language_segmentation.utils.num import num2str
 
-# -----------------------------------
-# 更新日志：新版本分词更加精准。
-# Changelog: The new version of the word segmentation is more accurate.
-# チェンジログ:新しいバージョンの単語セグメンテーションはより正確です。
-# Changelog: 분할이라는 단어의 새로운 버전이 더 정확합니다.
-# -----------------------------------
 
 
-# Word segmentation function:
-# automatically identify and split the words (Chinese/English/Japanese/Korean) in the article or sentence according to different languages,
-# making it more suitable for TTS processing.
-# This code is designed for front-end text multi-lingual mixed annotation distinction, multi-language mixed training and inference of various TTS projects.
-# This processing result is mainly for (Chinese = zh, Japanese = ja, English = en, Korean = ko), and can actually support up to 97 different language mixing processing.
-
-# ===========================================================================================================
-# 分かち書き機能:文章や文章の中の例えば（中国語/英語/日本語/韓国語）を、異なる言語で自動的に認識して分割し、TTS処理により適したものにします。
-# このコードは、さまざまなTTSプロジェクトのフロントエンドテキストの多言語混合注釈区別、多言語混合トレーニング、および推論のために特別に作成されています。
-# ===========================================================================================================
-# (1)自動分詞:「韓国語では何を読むのですかあなたの体育の先生は誰ですか?今回の発表会では、iPhone 15シリーズの4機種が登場しました」
-# （2）手动分词:“あなたの名前は<ja>佐々木ですか?<ja>ですか?”
-# この処理結果は主に（中国語=ja、日本語=ja、英語=en、韓国語=ko）を対象としており、実際には最大97の異なる言語の混合処理をサポートできます。
-# ===========================================================================================================
-
-# ===========================================================================================================
-# 단어 분할 기능: 기사 또는 문장에서 단어(중국어/영어/일본어/한국어)를 다른 언어에 따라 자동으로 식별하고 분할하여 TTS 처리에 더 적합합니다.
-# 이 코드는 프런트 엔드 텍스트 다국어 혼합 주석 분화, 다국어 혼합 교육 및 다양한 TTS 프로젝트의 추론을 위해 설계되었습니다.
-# ===========================================================================================================
-# (1) 자동 단어 분할: "한국어로 무엇을 읽습니까? 스포츠 씨? 이 컨퍼런스는 4개의 iPhone 15 시리즈 모델을 제공합니다."
-# (2) 수동 참여: "이름이 <ja>Saki입니까? <ja>?"
-# 이 처리 결과는 주로 (중국어 = zh, 일본어 = ja, 영어 = en, 한국어 = ko)를 위한 것이며 실제로 혼합 처리를 위해 최대 97개의 언어를 지원합니다.
-# ===========================================================================================================
-
-# ===========================================================================================================
-# 分词功能：将文章或句子里的例如（中/英/日/韩），按不同语言自动识别并拆分，让它更适合TTS处理。
-# 本代码专为各种 TTS 项目的前端文本多语种混合标注区分，多语言混合训练和推理而编写。
-# ===========================================================================================================
-# （1）自动分词：“韩语中的오빠读什么呢？あなたの体育の先生は誰ですか? 此次发布会带来了四款iPhone 15系列机型”
-# （2）手动分词：“你的名字叫<ja>佐々木？<ja>吗？”
-# 本处理结果主要针对（中文=zh , 日文=ja , 英文=en , 韩语=ko）, 实际上可支持多达 97 种不同的语言混合处理。
-# ===========================================================================================================
 
 
-# 手动分词标签规范：<语言标签>文本内容</语言标签>
-# 수동 단어 분할 태그 사양: <언어 태그> 텍스트 내용</언어 태그>
-# Manual word segmentation tag specification: <language tags> text content </language tags>
-# 手動分詞タグ仕様:<言語タグ>テキスト内容</言語タグ>
-# ===========================================================================================================
-# For manual word segmentation, labels need to appear in pairs, such as:
-# 如需手动分词，标签需要成对出现，例如：“<ja>佐々木<ja>”  或者  “<ja>佐々木</ja>”
-# 错误示范：“你的名字叫<ja>佐々木。” 此句子中出现的单个<ja>标签将被忽略，不会处理。
-# Error demonstration: "Your name is <ja>佐々木。" Single <ja> tags that appear in this sentence will be ignored and will not be processed.
-# ===========================================================================================================
-
-
-# ===========================================================================================================
-# 语音合成标记语言 SSML , 这里只支持它的标签（非 XML）Speech Synthesis Markup Language SSML, only its tags are supported here (not XML)
-# 想支持更多的 SSML 标签？欢迎 PR！ Want to support more SSML tags? PRs are welcome!
-# 说明：除了中文以外，它也可改造成支持多语种 SSML ，不仅仅是中文。
-# Note: In addition to Chinese, it can also be modified to support multi-language SSML, not just Chinese.
-# ===========================================================================================================
-# 中文实现：Chinese implementation:
-# 【SSML】<number>=中文大写数字读法（单字）
-# 【SSML】<telephone>=数字转成中文电话号码大写汉字（单字）
-# 【SSML】<currency>=按金额发音。
-# 【SSML】<date>=按日期发音。支持 2024年08月24, 2024/8/24, 2024-08, 08-24, 24 等输入。
 # ===========================================================================================================
 class LangSSML:
 
@@ -217,8 +155,7 @@ class LangSSML:
         output_date = f"{year_month_day}{hours_minutes_seconds}"
         return output_date
 
-    # 【SSML】number=中文大写数字读法（单字）
-    # Chinese Numbers(single word)
+    
     def to_chinese_number(self, num: str):
         pattern = r"(\d+)"
         zh_numerals = self._zh_numerals_number
@@ -235,8 +172,7 @@ class LangSSML:
         output = output.replace(".", "点")
         return output
 
-    # 【SSML】telephone=数字转成中文电话号码大写汉字（单字）
-    # Convert numbers to Chinese phone numbers in uppercase Chinese characters(single word)
+   
     def to_chinese_telephone(self, num: str):
         output = self.to_chinese_number(num.replace("+86", ""))  # zh +86
         output = output.replace("一", "幺")
@@ -279,18 +215,7 @@ class LangSegment:
         # <zh>你好<zh> , <ja>佐々木</ja> , <en>OK<en> , <ko>오빠</ko> 这些写法均支持
         self.SYMBOLS_PATTERN = r"(<([a-zA-Z|-]*)>(.*?)<\/*[a-zA-Z|-]*>)"
 
-        # 语言过滤组功能, 可以指定保留语言。不在过滤组中的语言将被清除。您可随心搭配TTS语音合成所支持的语言。
-        # 언어 필터 그룹 기능을 사용하면 예약된 언어를 지정할 수 있습니다. 필터 그룹에 없는 언어는 지워집니다. TTS 텍스트에서 지원하는 언어를 원하는 대로 일치시킬 수 있습니다.
-        # 言語フィルターグループ機能では、予約言語を指定できます。フィルターグループに含まれていない言語はクリアされます。TTS音声合成がサポートする言語を自由に組み合わせることができます。
-        # The language filter group function allows you to specify reserved languages.
-        # Languages not in the filter group will be cleared. You can match the languages supported by TTS Text To Speech as you like.
-        # 排名越前，优先级越高，The higher the ranking, the higher the priority，ランキングが上位になるほど、優先度が高くなります。
-
-        # 系统默认过滤器。System default filter。(ISO 639-1 codes given)
-        # ----------------------------------------------------------------------------------------------------------------------------------
-        # "zh"中文=Chinese ,"en"英语=English ,"ja"日语=Japanese ,"ko"韩语=Korean ,"fr"法语=French ,"vi"越南语=Vietnamese , "ru"俄语=Russian
-        # "th"泰语=Thai
-        # ----------------------------------------------------------------------------------------------------------------------------------
+     
         self.DEFAULT_FILTERS = ["zh", "ja", "ko", "en"]
 
         # 用户可自定义过滤器。User-defined filters
@@ -299,43 +224,14 @@ class LangSegment:
         # 合并文本
         self.isLangMerge = True
 
-        # 试验性支持：您可自定义添加："fr"法语 , "vi"越南语。Experimental: You can customize to add: "fr" French, "vi" Vietnamese.
-        # 请使用API启用：self.setfilters(["zh", "en", "ja", "ko", "fr", "vi" , "ru" , "th"]) # 您可自定义添加，如："fr"法语 , "vi"越南语。
-
-        # 预览版功能，自动启用或禁用，无需设置
-        # Preview feature, automatically enabled or disabled, no settings required
+      
         self.EnablePreview = False
 
-        # 除此以外，它支持简写过滤器，只需按不同语种任意组合即可。
-        # In addition to that, it supports abbreviation filters, allowing for any combination of different languages.
-        # 示例：您可以任意指定多种组合，进行过滤
-        # Example: You can specify any combination to filter
-
-        # 中/日语言优先级阀值（评分范围为 0 ~ 1）:评分低于设定阀值 <0.89 时，启用 filters 中的优先级。\n
-        # 중/일본어 우선 순위 임계값(점수 범위 0-1): 점수가 설정된 임계값 <0.89보다 낮을 때 필터에서 우선 순위를 활성화합니다.
-        # 中国語/日本語の優先度しきい値（スコア範囲0〜1）:スコアが設定されたしきい値<0.89未満の場合、フィルターの優先度が有効になります。\n
-        # Chinese and Japanese language priority threshold (score range is 0 ~ 1): The default threshold is 0.89.  \n
-        # Only the common characters between Chinese and Japanese are processed with confidence and priority. \n
+    
         self.LangPriorityThreshold = 0.89
 
         # Langfilters = ["zh"]              # 按中文识别
-        # Langfilters = ["en"]              # 按英文识别
-        # Langfilters = ["ja"]              # 按日文识别
-        # Langfilters = ["ko"]              # 按韩文识别
-        # Langfilters = ["zh_ja"]           # 中日混合识别
-        # Langfilters = ["zh_en"]           # 中英混合识别
-        # Langfilters = ["ja_en"]           # 日英混合识别
-        # Langfilters = ["zh_ko"]           # 中韩混合识别
-        # Langfilters = ["ja_ko"]           # 日韩混合识别
-        # Langfilters = ["en_ko"]           # 英韩混合识别
-        # Langfilters = ["zh_ja_en"]        # 中日英混合识别
-        # Langfilters = ["zh_ja_en_ko"]     # 中日英韩混合识别
-
-        # 更多过滤组合，请您随意。。。For more filter combinations, please feel free to......
-        # より多くのフィルターの組み合わせ、お気軽に。。。더 많은 필터 조합을 원하시면 자유롭게 해주세요. .....
-
-        # 可选保留：支持中文数字拼音格式，更方便前端实现拼音音素修改和推理，默认关闭 False 。
-        # 开启后 True ，括号内的数字拼音格式均保留，并识别输出为："zh"中文。
+        # 
         self.keepPinyin = False
 
         # DEFINITION
@@ -1070,3 +966,4 @@ Tôi thích nghe nhạc vào những ngày mưa.
 
 if __name__ == "__main__":
     main()
+
