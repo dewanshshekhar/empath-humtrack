@@ -1,3 +1,11 @@
+"""
+ACE-Step: A Step Towards Music Generation Foundation Model
+
+https://github.com/ace-step/ACE-Step
+
+Apache 2.0 License
+"""
+
 import gradio as gr
 import librosa
 import os
@@ -88,7 +96,8 @@ def create_text2music_ui(
     with gr.Row(equal_height=True):
         # Get base output directory from environment variable, defaulting to CWD-relative 'outputs'.
         # This default (./outputs) is suitable for non-Docker local development.
-        output_file_dir = os.environ.get("EMPATH_OUTPUT_DIR", "./outputs")
+        # For Docker, the ACE_OUTPUT_DIR environment variable should be set (e.g., to /app/outputs).
+        output_file_dir = os.environ.get("ACE_OUTPUT_DIR", "./outputs")
         if not os.path.isdir(output_file_dir):
             os.makedirs(output_file_dir, exist_ok=True)
         json_files = [f for f in os.listdir(output_file_dir) if f.endswith('.json')]
@@ -118,7 +127,7 @@ def create_text2music_ui(
                 audio2audio_enable = gr.Checkbox(label="Enable Audio2Audio", value=False, info="Check to enable Audio-to-Audio generation using a reference audio.", elem_id="audio2audio_checkbox")
                 lora_name_or_path = gr.Dropdown(
                     label="Lora Name or Path",
-                    choices=["EMPATH-Step/EMPATH-Step-v1-chinese-rap-LoRA", "none"],
+                    choices=["ACE-Step/ACE-Step-v1-chinese-rap-LoRA", "none"],
                     value="none",
                     allow_custom_value=True,
                     min_width=300
@@ -986,11 +995,20 @@ def create_main_demo_ui(
     load_data_func=dump_func,
 ):
     with gr.Blocks(
-        title="EMPATH-Step Model 1.0 DEMO",
+        title="Empath Model 1.0 DEMO",
     ) as demo:
+        gr.HTML("""<style>
+button.primary {
+    background-color: #E8FF47 !important;
+    color: #000 !important;
+}
+button.primary:hover {
+    background-color: #d4ff1a !important;
+}
+</style>""")
         gr.Markdown(
             """
-            <h1 style="text-align: center;">EMPATH-Step: A Step Towards Music Generation Foundation Model</h1>
+            <h1 style="text-align: center;">Empath AI: A Step Towards Music Generation Foundation Model</h1>
         """
         )
         with gr.Tab("text2music"):
