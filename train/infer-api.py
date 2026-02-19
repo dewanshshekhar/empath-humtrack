@@ -2,13 +2,13 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from typing import List, Optional
 import os
-from acestep.pipeline_ace_step import ACEStepPipeline
-from acestep.data_sampler import DataSampler
+from empath.pipeline_ace_step import empathPipeline
+from empath.data_sampler import DataSampler
 import uuid
 
-app = FastAPI(title="ACEStep Pipeline API")
+app = FastAPI(title="empath Pipeline API")
 
-class ACEStepInput(BaseModel):
+class empathInput(BaseModel):
     checkpoint_path: str
     bf16: bool = True
     torch_compile: bool = False
@@ -33,21 +33,21 @@ class ACEStepInput(BaseModel):
     guidance_scale_text: float = 0.0
     guidance_scale_lyric: float = 0.0
 
-class ACEStepOutput(BaseModel):
+class empathOutput(BaseModel):
     status: str
     output_path: Optional[str]
     message: str
 
-def initialize_pipeline(checkpoint_path: str, bf16: bool, torch_compile: bool, device_id: int) -> ACEStepPipeline:
+def initialize_pipeline(checkpoint_path: str, bf16: bool, torch_compile: bool, device_id: int) -> empathPipeline:
     os.environ["CUDA_VISIBLE_DEVICES"] = str(device_id)
-    return ACEStepPipeline(
+    return empathPipeline(
         checkpoint_dir=checkpoint_path,
         dtype="bfloat16" if bf16 else "float32",
         torch_compile=torch_compile,
     )
 
-@app.post("/generate", response_model=ACEStepOutput)
-async def generate_audio(input_data: ACEStepInput):
+@app.post("/generate", response_model=empathOutput)
+async def generate_audio(input_data: empathInput):
     try:
         # Initialize pipeline
         model_demo = initialize_pipeline(
@@ -88,7 +88,7 @@ async def generate_audio(input_data: ACEStepInput):
             save_path=output_path
         )
 
-        return ACEStepOutput(
+        return empathOutput(
             status="success",
             output_path=output_path,
             message="Audio generated successfully"
