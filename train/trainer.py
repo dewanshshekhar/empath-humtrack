@@ -25,7 +25,7 @@ from empath.apg_guidance import apg_forward, MomentumBuffer
 from tqdm import tqdm
 import random
 import os
-from empath.pipeline_ace_step import empathPipeline
+from empath.pipeline_empath import empathPipeline
 
 
 matplotlib.use("Agg")

@@ -47,7 +47,7 @@ def main(checkpoint_path, server_name, port, device_id, share, bf16, torch_compi
     os.environ["CUDA_VISIBLE_DEVICES"] = str(device_id)
 
     from empath.ui.components import create_main_demo_ui
-    from empath.pipeline_ace_step import empathPipeline
+    from empath.pipeline_empath import empathPipeline
     from empath.data_sampler import DataSampler
 
     model_demo = empathPipeline(

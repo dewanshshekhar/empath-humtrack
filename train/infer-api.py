@@ -2,7 +2,7 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from typing import List, Optional
 import os
-from empath.pipeline_ace_step import empathPipeline
+from empath.pipeline_empath import empathPipeline
 from empath.data_sampler import DataSampler
 import uuid
 

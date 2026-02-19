@@ -8,7 +8,7 @@ import random
 from diffusers.utils.torch_utils import randn_tensor
 from diffusers.pipelines.stable_diffusion_3.pipeline_stable_diffusion_3 import retrieve_timesteps
 from empath.schedulers.scheduling_flow_match_euler_discrete import FlowMatchEulerDiscreteScheduler
-from empath.pipeline_ace_step import empathPipeline
+from empath.pipeline_empath import empathPipeline
 from empath.apg_guidance import apg_forward, MomentumBuffer
 from transformers import AutoTokenizer
 from loguru import logger
