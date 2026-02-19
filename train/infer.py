@@ -1,8 +1,8 @@
 import click
 import os
 
-from acestep.pipeline_ace_step import ACEStepPipeline
-from acestep.data_sampler import DataSampler
+from empath.pipeline_ace_step import empathPipeline
+from empath.data_sampler import DataSampler
 
 
 def sample_data(json_data):
@@ -51,7 +51,7 @@ def sample_data(json_data):
 def main(checkpoint_path, bf16, torch_compile, cpu_offload, overlapped_decode, device_id, output_path):
     os.environ["CUDA_VISIBLE_DEVICES"] = str(device_id)
 
-    model_demo = ACEStepPipeline(
+    model_demo = empathPipeline(
         checkpoint_dir=checkpoint_path,
         dtype="bfloat16" if bf16 else "float32",
         torch_compile=torch_compile,
