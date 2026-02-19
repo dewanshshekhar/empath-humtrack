@@ -136,21 +136,6 @@ Empath is built entirely on **open-source, permissively licensed AI models**.
 | Open-source pipeline | ✅ |
 | Multi-track MIDI | ✅ |
 
----
-
-## 🤝 Contributing
-
-Contributions, ideas, and feedback are welcome.  
-If you're a producer, ML engineer, or audio DSP enthusiast, we'd love your input.
-
----
-
-## 📜 License
-
-*(To be decided — recommended: MIT or Apache 2.0)*
-
----
-
 ## ⭐ Vision
 
 Empath AI aims to become the **fastest path from musical idea to full production** — empowering creators to stay in the flow and never lose inspiration.
