@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, jsonify
 
 # Create a Flask application instance
 # __name__ helps Flask determine the root path of the application
